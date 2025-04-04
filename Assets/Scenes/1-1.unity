@@ -1477,6 +1477,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Brick_0 (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 2132823679542096791, guid: b3ae8aa0d691448d9b81343c5f278aa5, type: 3}
+      propertyPath: item
+      value: 
+      objectReference: {fileID: 7428052841186957963, guid: 6f9281104d11141ec9b46c2a185405dc, type: 3}
+    - target: {fileID: 2132823679542096791, guid: b3ae8aa0d691448d9b81343c5f278aa5, type: 3}
+      propertyPath: maxHits
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 3526728480745621894, guid: b3ae8aa0d691448d9b81343c5f278aa5, type: 3}
       propertyPath: m_Size.x
       value: 1
