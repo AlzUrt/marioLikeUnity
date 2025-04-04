@@ -18,6 +18,9 @@ public class PlayerMovement : MonoBehaviour
     public float jumpForce => (2f * maxJumpHeight) / (maxJumpTime / 2f);
     public float gravity => (-2f * maxJumpHeight) / Mathf.Pow(maxJumpTime / 2f, 2f);
 
+    public float coyoteTime = 0.2f;
+    private float coyoteTimeCounter;
+
     public bool grounded { get; private set; }
     public bool jumping { get; private set; }
     public bool running => Mathf.Abs(velocity.x) > 0.25f || Mathf.Abs(inputAxis) > 0.25f;
@@ -36,6 +39,7 @@ public class PlayerMovement : MonoBehaviour
         capsuleCollider.enabled = true;
         velocity = Vector2.zero;
         jumping = false;
+        coyoteTimeCounter = 0f;
     }
 
     private void OnDisable()
@@ -51,11 +55,29 @@ public class PlayerMovement : MonoBehaviour
     {
         HorizontalMovement();
 
+        bool wasGrounded = grounded;
         grounded = rb.Raycast(Vector2.down);
+
+        if (wasGrounded && !grounded)
+        {
+            coyoteTimeCounter = coyoteTime;
+        }
+        else if (grounded)
+        {
+            coyoteTimeCounter = coyoteTime;
+        }
+        else
+        {
+            coyoteTimeCounter -= Time.deltaTime;
+        }
 
         if (grounded)
         {
             GroundedMovement();
+        }
+        else
+        {
+            AirborneMovement();
         }
 
         ApplyGravity();
@@ -103,6 +125,17 @@ public class PlayerMovement : MonoBehaviour
         {
             velocity.y = jumpForce;
             jumping = true;
+            coyoteTimeCounter = 0f;
+        }
+    }
+
+    private void AirborneMovement()
+    {
+        if (coyoteTimeCounter > 0f && Input.GetButtonDown("Jump") && !jumping)
+        {
+            velocity.y = jumpForce;
+            jumping = true;
+            coyoteTimeCounter = 0f;
         }
     }
 
