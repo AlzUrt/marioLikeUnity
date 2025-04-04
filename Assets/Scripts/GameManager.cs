@@ -10,6 +10,7 @@ public class GameManager : MonoBehaviour
     public int stage { get; private set; } = 1;
     public int lives { get; private set; } = 3;
     public int coins { get; private set; } = 0;
+    private UIManager uiManager;
 
     private void Awake()
     {
@@ -36,6 +37,26 @@ public class GameManager : MonoBehaviour
     {
         Application.targetFrameRate = 60;
         NewGame();
+    }
+
+    private void OnEnable()
+    {
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+
+    private void OnDisable()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        uiManager = FindObjectOfType<UIManager>();
+        if (uiManager != null)
+        {
+            uiManager.UpdateCoinText();
+            uiManager.UpdateLivesText();
+        }
     }
 
     public void NewGame()
@@ -88,6 +109,11 @@ public class GameManager : MonoBehaviour
     {
         coins++;
 
+        if (uiManager != null)
+        {
+            uiManager.UpdateCoinText();
+        }
+
         if (coins == 100)
         {
             coins = 0;
@@ -98,6 +124,10 @@ public class GameManager : MonoBehaviour
     public void AddLife()
     {
         lives++;
-    }
 
+        if (uiManager != null)
+        {
+            uiManager.UpdateLivesText();
+        }
+    }
 }
