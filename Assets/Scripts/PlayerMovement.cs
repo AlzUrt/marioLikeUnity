@@ -13,6 +13,7 @@ public class PlayerMovement : MonoBehaviour
     public float moveSpeed = 8f;
     public float maxJumpHeight = 5f;
     public float maxJumpTime = 1f;
+    public float slideDeceleration = 16f; // Nouvelle variable pour contrôler la décélération lors du glissement
     public float jumpForce => (2f * maxJumpHeight) / (maxJumpTime / 2f);
     public float gravity => (-2f * maxJumpHeight) / Mathf.Pow(maxJumpTime / 2f, 2f);
 
@@ -75,7 +76,16 @@ public class PlayerMovement : MonoBehaviour
     private void HorizontalMovement()
     {
         inputAxis = Input.GetAxis("Horizontal");
-        velocity.x = Mathf.MoveTowards(velocity.x, inputAxis * moveSpeed, moveSpeed * Time.deltaTime);
+
+        // Applique une décélération plus forte lors du changement de direction (glissement)
+        if (sliding)
+        {
+            velocity.x = Mathf.MoveTowards(velocity.x, inputAxis * moveSpeed, slideDeceleration * Time.deltaTime);
+        }
+        else
+        {
+            velocity.x = Mathf.MoveTowards(velocity.x, inputAxis * moveSpeed, moveSpeed * Time.deltaTime);
+        }
 
         if (rb.Raycast(Vector2.right * velocity.x))
         {
@@ -131,5 +141,4 @@ public class PlayerMovement : MonoBehaviour
             }
         }
     }
-
 }
