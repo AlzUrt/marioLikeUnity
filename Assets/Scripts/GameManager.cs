@@ -8,8 +8,10 @@ public class GameManager : MonoBehaviour
 
     public int world { get; private set; } = 1;
     public int stage { get; private set; } = 1;
-    public int lives { get; private set; } = 3;
     public int coins { get; private set; } = 0;
+    public int deathCount { get; private set; } = 0;
+
+    // Reference to our UIManager
     private UIManager uiManager;
 
     private void Awake()
@@ -51,19 +53,19 @@ public class GameManager : MonoBehaviour
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
+        // Find UIManager in the newly loaded scene
         uiManager = FindObjectOfType<UIManager>();
         if (uiManager != null)
         {
             uiManager.UpdateCoinText();
-            uiManager.UpdateLivesText();
+            uiManager.UpdateDeathCountText();
         }
     }
 
     public void NewGame()
     {
-        lives = 3;
         coins = 0;
-
+        // Ne pas réinitialiser le compteur de morts pour conserver le nombre total
         LoadLevel(1, 1);
     }
 
@@ -93,22 +95,24 @@ public class GameManager : MonoBehaviour
 
     public void ResetLevel()
     {
-        lives--;
+        // Incrémenter le compteur de morts
+        deathCount++;
 
-        if (lives > 0)
+        // Mettre à jour l'UI
+        if (uiManager != null)
         {
-            LoadLevel(world, stage);
+            uiManager.UpdateDeathCountText();
         }
-        else
-        {
-            GameOver();
-        }
+
+        // Avec une seule vie, reset direct au nouveau jeu
+        GameOver();
     }
 
     public void AddCoin()
     {
         coins++;
 
+        // Update UI when coins change
         if (uiManager != null)
         {
             uiManager.UpdateCoinText();
@@ -117,17 +121,11 @@ public class GameManager : MonoBehaviour
         if (coins == 100)
         {
             coins = 0;
-            AddLife();
-        }
-    }
-
-    public void AddLife()
-    {
-        lives++;
-
-        if (uiManager != null)
-        {
-            uiManager.UpdateLivesText();
+            // Pas d'ajout de vie, mais mise à jour de l'UI
+            if (uiManager != null)
+            {
+                uiManager.UpdateCoinText();
+            }
         }
     }
 }

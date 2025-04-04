@@ -6,7 +6,7 @@ public class UIManager : MonoBehaviour
 {
     [Header("References")]
     public TextMeshProUGUI coinText;
-    public TextMeshProUGUI livesText;
+    public TextMeshProUGUI deathCountText;
 
     private GameManager gameManager;
 
@@ -18,7 +18,7 @@ public class UIManager : MonoBehaviour
     private void Start()
     {
         UpdateCoinText();
-        UpdateLivesText();
+        UpdateDeathCountText();
     }
 
     public void UpdateCoinText()
@@ -29,11 +29,11 @@ public class UIManager : MonoBehaviour
         }
     }
 
-    public void UpdateLivesText()
+    public void UpdateDeathCountText()
     {
-        if (livesText != null)
+        if (deathCountText != null)
         {
-            livesText.text = "LIVES: " + gameManager.lives.ToString();
+            deathCountText.text = "DEATHS: " + gameManager.deathCount.ToString();
         }
     }
 }

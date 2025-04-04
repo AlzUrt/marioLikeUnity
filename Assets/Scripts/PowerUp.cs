@@ -29,7 +29,8 @@ public class PowerUp : MonoBehaviour
                 break;
 
             case Type.ExtraLife:
-                GameManager.Instance.AddLife();
+                //trouver un truc a faire avec ca
+                //GameManager.Instance.AddLife();
                 break;
 
             case Type.MagicMushroom:
