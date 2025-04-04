@@ -32,7 +32,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void OnEnable()
     {
-        rb.isKinematic = false;
+        rb.bodyType = RigidbodyType2D.Dynamic;
         capsuleCollider.enabled = true;
         velocity = Vector2.zero;
         jumping = false;
@@ -40,7 +40,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void OnDisable()
     {
-        rb.isKinematic = true;
+        rb.bodyType = RigidbodyType2D.Kinematic;
         capsuleCollider.enabled = false;
         velocity = Vector2.zero;
         inputAxis = 0f;
