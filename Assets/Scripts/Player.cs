@@ -44,7 +44,8 @@ public class Player : MonoBehaviour
         bigRenderer.enabled = false;
         deathAnimation.enabled = true;
 
-        GameManager.Instance.ResetLevel(3f);
+        // Réduire le délai de respawn de 3 secondes à 1 seconde
+        GameManager.Instance.ResetLevel(1f);
     }
 
     public void Grow()
@@ -121,5 +122,4 @@ public class Player : MonoBehaviour
         activeRenderer.spriteRenderer.color = Color.white;
         starpower = false;
     }
-
 }

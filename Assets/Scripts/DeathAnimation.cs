@@ -63,7 +63,7 @@ public class DeathAnimation : MonoBehaviour
     private IEnumerator Animate()
     {
         float elapsed = 0f;
-        float duration = 3f;
+        float duration = 1f;
 
         float jumpVelocity = 10f;
         float gravity = -36f;
@@ -78,5 +78,4 @@ public class DeathAnimation : MonoBehaviour
             yield return null;
         }
     }
-
 }

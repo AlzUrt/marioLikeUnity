@@ -54,7 +54,7 @@ public class GameManager : MonoBehaviour
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         // Find UIManager in the newly loaded scene
-        uiManager = FindObjectOfType<UIManager>();
+        uiManager = FindFirstObjectByType<UIManager>();
         if (uiManager != null)
         {
             uiManager.UpdateCoinText();
