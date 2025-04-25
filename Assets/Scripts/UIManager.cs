@@ -8,6 +8,9 @@ public class UIManager : MonoBehaviour
     public TextMeshProUGUI coinText;
     public TextMeshProUGUI deathCountText;
 
+    [Header("Timer")]
+    public TextMeshProUGUI timerText;
+
     private GameManager gameManager;
 
     private void Awake()
@@ -19,6 +22,7 @@ public class UIManager : MonoBehaviour
     {
         UpdateCoinText();
         UpdateDeathCountText();
+        UpdateTimerText();
     }
 
     public void UpdateCoinText()
@@ -34,6 +38,14 @@ public class UIManager : MonoBehaviour
         if (deathCountText != null)
         {
             deathCountText.text = "DEATHS: " + gameManager.deathCount.ToString();
+        }
+    }
+
+    public void UpdateTimerText()
+    {
+        if (timerText != null)
+        {
+            timerText.text = "TIME: " + gameManager.GetFormattedTime();
         }
     }
 }
