@@ -214,46 +214,4 @@ public class CrushingWallsTrigger : MonoBehaviour
 
         return 1f; // Valeur par défaut
     }
-
-    // Pour le débogage - rendre visible le trigger dans l'éditeur
-    private void OnDrawGizmos()
-    {
-        // Dessiner le volume du trigger
-        Collider2D collider = GetComponent<Collider2D>();
-        if (collider != null)
-        {
-            Gizmos.color = new Color(1f, 0.2f, 0.2f, 0.5f); // Rouge semi-transparent
-            Gizmos.DrawCube(transform.position, collider.bounds.size);
-        }
-
-        // Dessiner les positions des murs et le gap final
-        if (leftWall != null && rightWall != null)
-        {
-            // Dessiner les murs actuels
-            Gizmos.color = Color.blue;
-            Bounds leftBounds = leftWall.GetComponent<Renderer>()?.bounds ?? new Bounds(leftWall.transform.position, Vector3.one);
-            Bounds rightBounds = rightWall.GetComponent<Renderer>()?.bounds ?? new Bounds(rightWall.transform.position, Vector3.one);
-            Gizmos.DrawWireCube(leftBounds.center, leftBounds.size);
-            Gizmos.DrawWireCube(rightBounds.center, rightBounds.size);
-
-            // Dessiner le gap final prévu
-            if (Application.isPlaying)
-            {
-                // Calculer les positions finales comme dans MoveWalls
-                float currentDistance = Vector3.Distance(leftWall.transform.position, rightWall.transform.position);
-                float targetDistance = finalGap;
-                float distanceToMove = (currentDistance - targetDistance) / 2f;
-
-                Vector3 direction = (rightWall.transform.position - leftWall.transform.position).normalized;
-                Vector3 leftWallTargetPosition = leftWallOriginalPosition + (direction * distanceToMove);
-                Vector3 rightWallTargetPosition = rightWallOriginalPosition - (direction * distanceToMove);
-
-                // Dessiner les positions cibles
-                Gizmos.color = Color.red;
-                Gizmos.DrawLine(leftWallTargetPosition, rightWallTargetPosition);
-                Gizmos.DrawSphere(leftWallTargetPosition, 0.2f);
-                Gizmos.DrawSphere(rightWallTargetPosition, 0.2f);
-            }
-        }
-    }
 }
