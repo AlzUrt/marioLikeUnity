@@ -3,9 +3,7 @@ using UnityEngine;
 public class SpikeTrapTrigger : MonoBehaviour
 {
     public GameObject spikePlatform;
-
     public float fallSpeed = 15f;
-
     private bool hasBeenTriggered = false;
 
     private void Start()
@@ -32,9 +30,7 @@ public class SpikeTrapTrigger : MonoBehaviour
         if (!hasBeenTriggered && other.CompareTag("Player"))
         {
             DropSpikePlatform();
-
             hasBeenTriggered = true;
-
         }
     }
 
@@ -51,11 +47,14 @@ public class SpikeTrapTrigger : MonoBehaviour
             rb.bodyType = RigidbodyType2D.Dynamic;
             rb.gravityScale = fallSpeed / 9.81f;
 
-            if (spikePlatform.GetComponent<SpikeBlock>() == null)
+            // Vérifier si le SpikeBlock existe déjà avant d'en ajouter un nouveau
+            SpikeBlock spikeBlock = spikePlatform.GetComponent<SpikeBlock>();
+            if (spikeBlock == null)
             {
-                spikePlatform.AddComponent<SpikeBlock>();
+                spikeBlock = spikePlatform.AddComponent<SpikeBlock>();
             }
 
+            // Configurer les colliders pour qu'ils fonctionnent correctement
             ConfigureColliders(spikePlatform);
         }
     }
@@ -64,23 +63,40 @@ public class SpikeTrapTrigger : MonoBehaviour
     {
         Collider2D[] colliders = obj.GetComponents<Collider2D>();
 
+        // S'assurer qu'au moins un collider n'est pas un trigger pour la physique
+        bool hasNonTriggerCollider = false;
+
         foreach (Collider2D collider in colliders)
         {
-            if (!collider.isTrigger)
+            // Garder au moins un collider comme non-trigger pour la physique
+            if (!hasNonTriggerCollider)
+            {
+                collider.isTrigger = false;
+                hasNonTriggerCollider = true;
+            }
+            else
             {
                 collider.isTrigger = true;
             }
         }
 
-        SpikeBlock spikeBlock = obj.GetComponent<SpikeBlock>();
-        if (spikeBlock != null)
+        // Si aucun collider n'a été trouvé, en ajouter un pour la détection
+        if (colliders.Length == 0)
         {
-            // Le SpikeBlock existe déjà et utilisera OnTriggerEnter2D maintenant
-            // que le collider est configuré comme trigger
+            BoxCollider2D newCollider = obj.AddComponent<BoxCollider2D>();
+            newCollider.isTrigger = false;
+
+            // Ajouter un second collider pour la détection du joueur
+            BoxCollider2D triggerCollider = obj.AddComponent<BoxCollider2D>();
+            triggerCollider.isTrigger = true;
         }
-        else
+        else if (colliders.Length == 1)
         {
-            obj.AddComponent<SpikeBlockTrigger>();
+            // Si un seul collider existe, ajouter un second en trigger
+            BoxCollider2D triggerCollider = obj.AddComponent<BoxCollider2D>();
+            triggerCollider.size = colliders[0].bounds.size;
+            triggerCollider.offset = colliders[0].offset;
+            triggerCollider.isTrigger = true;
         }
     }
 }
