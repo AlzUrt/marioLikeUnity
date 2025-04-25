@@ -7,7 +7,7 @@ public class PlayerMovement : MonoBehaviour
     private Rigidbody2D rb;
     private Collider2D capsuleCollider;
 
-    private Vector2 velocity;
+    public Vector2 velocity;
     private float inputAxis;
 
     public float moveSpeed = 8f;
