@@ -5176,9 +5176,10 @@ MonoBehaviour:
   - {fileID: 753954638}
   - {fileID: 1640426411}
   - {fileID: 196312566}
-  acidRainDuration: 5
+  acidRainDuration: 3
   dropFrequency: 0.2
   acidDropSpeed: 8
+  canTriggerMultipleTimes: 0
 --- !u!1001 &1252602080
 PrefabInstance:
   m_ObjectHideFlags: 0
