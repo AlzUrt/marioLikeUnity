@@ -108,7 +108,7 @@ public class SpikeBlockTrigger : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             Player player = other.GetComponent<Player>();
-            if (player != null)
+            if (player != null && !player.starpower)
             {
                 player.Death();
             }

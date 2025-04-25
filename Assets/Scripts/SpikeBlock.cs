@@ -7,19 +7,19 @@ public class SpikeBlock : MonoBehaviour
         if (collision.gameObject.CompareTag("Player"))
         {
             Player player = collision.gameObject.GetComponent<Player>();
-            if (player != null)
+            if (player != null && !player.starpower)
             {
                 player.Death();
             }
         }
     }
-
+    
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("Player"))
         {
             Player player = other.GetComponent<Player>();
-            if (player != null)
+            if (player != null && !player.starpower)
             {
                 player.Death();
             }
