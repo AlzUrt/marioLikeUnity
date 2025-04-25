@@ -5,11 +5,15 @@ using UnityEngine;
 public class AcidRainTrigger : MonoBehaviour
 {
     public List<GameObject> clouds = new List<GameObject>();
-    public float acidRainDuration = 5f;
+    public float acidRainDuration = 3f;
     public float dropFrequency = 0.2f;
     public float acidDropSpeed = 8f;
 
+    [Tooltip("Définit si ce piège peut être déclenché plusieurs fois")]
+    public bool canTriggerMultipleTimes = false;
+
     private bool isRaining = false;
+    private bool hasBeenTriggered = false;
 
     private void Start()
     {
@@ -22,9 +26,10 @@ public class AcidRainTrigger : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag("Player") && !isRaining)
+        if (other.CompareTag("Player") && !isRaining && (canTriggerMultipleTimes || !hasBeenTriggered))
         {
             StartCoroutine(TriggerAcidRain());
+            hasBeenTriggered = true;
         }
     }
 
@@ -63,6 +68,12 @@ public class AcidRainTrigger : MonoBehaviour
 
         yield return new WaitForSeconds(1f);
         isRaining = false;
+
+        // Si on peut déclencher plusieurs fois, réinitialiser hasBeenTriggered
+        if (canTriggerMultipleTimes)
+        {
+            hasBeenTriggered = false;
+        }
     }
 
     private IEnumerator SpawnAcidDrops(GameObject cloud)
@@ -130,6 +141,18 @@ public class AcidRainTrigger : MonoBehaviour
         texture.Apply();
 
         return Sprite.Create(texture, new Rect(0, 0, 32, 32), new Vector2(0.5f, 0.5f));
+    }
+
+    // Pour le débogage - rendre visible le trigger dans l'éditeur
+    private void OnDrawGizmos()
+    {
+        // Dessiner le volume du trigger
+        BoxCollider2D collider = GetComponent<BoxCollider2D>();
+        if (collider != null)
+        {
+            Gizmos.color = new Color(1f, 0f, 0f, 0.5f); // Rouge semi-transparent
+            Gizmos.DrawCube(transform.position, collider.bounds.size);
+        }
     }
 }
 
