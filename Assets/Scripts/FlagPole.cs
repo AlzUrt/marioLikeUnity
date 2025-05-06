@@ -9,6 +9,13 @@ public class FlagPole : MonoBehaviour
     public float speed = 6f;
     public int nextWorld = 1;
     public int nextStage = 1;
+    private LeaderboardManager leaderboardManager;
+
+    private void Start()
+    {
+        // Trouver le LeaderboardManager dans la scène
+        leaderboardManager = FindObjectOfType<LeaderboardManager>();
+    }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
@@ -23,6 +30,9 @@ public class FlagPole : MonoBehaviour
     {
         player.movement.enabled = false;
 
+        // Arrêter le timer
+        GameManager.Instance.StopTimer();
+
         yield return MoveTo(player.transform, poleBottom.position);
         yield return MoveTo(player.transform, player.transform.position + Vector3.right);
         yield return MoveTo(player.transform, player.transform.position + Vector3.right + Vector3.down);
@@ -30,9 +40,17 @@ public class FlagPole : MonoBehaviour
 
         player.gameObject.SetActive(false);
 
-        yield return new WaitForSeconds(2f);
-
-        GameManager.Instance.LoadLevel(nextWorld, nextStage);
+        // Afficher le leaderboard après l'animation
+        if (leaderboardManager != null)
+        {
+            leaderboardManager.ShowLeaderboard();
+        }
+        else
+        {
+            // Fallback si le leaderboardManager n'est pas trouvé
+            yield return new WaitForSeconds(2f);
+            GameManager.Instance.LoadLevel(nextWorld, nextStage);
+        }
     }
 
     private IEnumerator MoveTo(Transform subject, Vector3 position)
@@ -45,5 +63,4 @@ public class FlagPole : MonoBehaviour
 
         subject.position = position;
     }
-
 }
