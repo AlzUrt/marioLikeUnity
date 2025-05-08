@@ -13,8 +13,7 @@ public class FlagPole : MonoBehaviour
 
     private void Start()
     {
-        // Trouver le LeaderboardManager dans la scène
-        leaderboardManager = FindObjectOfType<LeaderboardManager>();
+        leaderboardManager = FindFirstObjectByType<LeaderboardManager>();
     }
 
     private void OnTriggerEnter2D(Collider2D other)

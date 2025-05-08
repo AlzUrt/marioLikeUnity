@@ -74,6 +74,17 @@ public class GameManager : MonoBehaviour
         SceneManager.sceneLoaded -= OnSceneLoaded;
     }
 
+    public void ResetDeathCount()
+    {
+        deathCount = -1;
+
+        if (uiManager != null)
+        {
+            uiManager.UpdateDeathCountText();
+        }
+    }
+
+
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         // Find UIManager in the newly loaded scene

@@ -99,7 +99,9 @@ public class LeaderboardManager : MonoBehaviour
             int maxScore = 1000000000;
             float seconds = (maxScore - entry.Score) / 1000f;
             string formattedTime = FormatTimeWithMilliseconds(seconds);
-            entryText.text = $"{entry.Rank}. {entry.Username} - {formattedTime}";
+
+            string deathsInfo = string.IsNullOrEmpty(entry.Extra) ? "0 deaths" : entry.Extra;
+            entryText.text = $"{entry.Rank}. {entry.Username} - {formattedTime} - {deathsInfo}";
         }
     }
 
@@ -120,10 +122,12 @@ public class LeaderboardManager : MonoBehaviour
 
         int score = CalculateTimeScore();
 
+        string extraInfo = gameManager.deathCount + " deaths";
+
         Button submitButton = usernameInputField.transform.parent.GetComponentInChildren<Button>();
         if (submitButton != null) submitButton.interactable = false;
 
-        LeaderboardCreator.UploadNewEntry(leaderboardPublicKey, usernameInputField.text, score, isSuccessful =>
+        LeaderboardCreator.UploadNewEntry(leaderboardPublicKey, usernameInputField.text, score, extraInfo, isSuccessful =>
         {
             if (submitButton != null) submitButton.interactable = true;
 
@@ -162,10 +166,12 @@ public class LeaderboardManager : MonoBehaviour
 
         if (gameManager != null)
         {
+            gameManager.ResetDeathCount(); 
             gameManager.ResetLevel();
         }
         else if (GameManager.Instance != null)
         {
+            GameManager.Instance.ResetDeathCount();
             GameManager.Instance.ResetLevel();
         }
     }
