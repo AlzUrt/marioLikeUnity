@@ -87,6 +87,8 @@ public class GameManager : MonoBehaviour
 
         // Démarrer le timer quand une nouvelle scène est chargée
         StartTimer();
+
+        SoundManager.Instance.PlayMusic("Musique");
     }
 
     public void NewGame()

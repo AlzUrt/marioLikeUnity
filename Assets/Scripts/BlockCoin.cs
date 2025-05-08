@@ -14,7 +14,7 @@ public class BlockCoin : MonoBehaviour
     {
         Vector3 restingPosition = transform.localPosition;
         Vector3 animatedPosition = restingPosition + Vector3.up * 2f;
-
+        SoundManager.Instance.Play("piece");
         yield return Move(restingPosition, animatedPosition);
         yield return Move(animatedPosition, restingPosition);
 

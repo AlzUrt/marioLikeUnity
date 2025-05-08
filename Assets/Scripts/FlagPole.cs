@@ -21,6 +21,8 @@ public class FlagPole : MonoBehaviour
     {
         if (other.CompareTag("Player") && other.TryGetComponent(out Player player))
         {
+            SoundManager.Instance.Play("Victory");
+
             StartCoroutine(MoveTo(flag, poleBottom.position));
             StartCoroutine(LevelCompleteSequence(player));
         }

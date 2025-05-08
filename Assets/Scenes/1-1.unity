@@ -377,11 +377,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 38d8c346832954236bb4ce750f91870c, type: 3}
---- !u!4 &53245156 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 2521903358095784062, guid: f2bc67b2ebd8e4d72bf62eafa60f688b, type: 3}
-  m_PrefabInstance: {fileID: 1202296967}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &57003565 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7374839290674586369, guid: dcb7c89fd0d584fa6a1adc50d7c2a39c, type: 3}
@@ -505,6 +500,7 @@ GameObject:
   m_Component:
   - component: {fileID: 78829073}
   - component: {fileID: 78829072}
+  - component: {fileID: 78829074}
   m_Layer: 0
   m_Name: Game Manager
   m_TagString: Untagged
@@ -539,6 +535,73 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &78829074
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 78829071}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bf49c907e56f845d78004789ff4cab6b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerSounds:
+  - name: Jump
+    clip: {fileID: 8300000, guid: a003258302942477db9f3326c95135af, type: 3}
+    volume: 1
+    pitch: 0.93
+    spatialBlend: 0
+    loop: 0
+    source: {fileID: 0}
+  - name: Death
+    clip: {fileID: 8300000, guid: 1da7ac0050a554102ae0d1abc42a9cab, type: 3}
+    volume: 1
+    pitch: 1.5
+    spatialBlend: 0
+    loop: 0
+    source: {fileID: 0}
+  interactionSounds:
+  - name: piece
+    clip: {fileID: 8300000, guid: 1db0b5e84054f43f4bc0371aef7efb38, type: 3}
+    volume: 1
+    pitch: 2
+    spatialBlend: 0
+    loop: 0
+    source: {fileID: 0}
+  enemySounds:
+  - name: monsterdeath
+    clip: {fileID: 8300000, guid: 56f5b947bfc74437a8ae1b220b7b2a3b, type: 3}
+    volume: 1
+    pitch: 1.5
+    spatialBlend: 0
+    loop: 0
+    source: {fileID: 0}
+  - name: poink
+    clip: {fileID: 8300000, guid: 98090152c74a943ba896f7b435338eb6, type: 3}
+    volume: 1
+    pitch: 1.5
+    spatialBlend: 0
+    loop: 0
+    source: {fileID: 0}
+  environmentSounds: []
+  uiSounds:
+  - name: Victory
+    clip: {fileID: 8300000, guid: 5dc5e656c3eec43fba9529adbac3f849, type: 3}
+    volume: 1
+    pitch: 1
+    spatialBlend: 0
+    loop: 0
+    source: {fileID: 0}
+  music:
+  - name: Musique
+    clip: {fileID: 8300000, guid: 3c0f2a0e9cc6c49df8bba38c382b0cde, type: 3}
+    volume: 0.3
+    pitch: 1
+    spatialBlend: 0
+    loop: 1
+    source: {fileID: 0}
 --- !u!1001 &85553202
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1739,7 +1802,6 @@ Transform:
   - {fileID: 1182489991}
   - {fileID: 1159113542}
   - {fileID: 1151746768}
-  - {fileID: 53245156}
   - {fileID: 503737009}
   - {fileID: 1300319593}
   m_Father: {fileID: 848958409}
@@ -3490,7 +3552,7 @@ PrefabInstance:
       objectReference: {fileID: 1253742991}
     - target: {fileID: 5252302265258138639, guid: c100e82c17bbd4bc98701e7fa1aaaeb5, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -122.7
+      value: 12.1
       objectReference: {fileID: 0}
     - target: {fileID: 5252302265258138639, guid: c100e82c17bbd4bc98701e7fa1aaaeb5, type: 3}
       propertyPath: m_LocalPosition.y
@@ -6443,67 +6505,6 @@ PrefabInstance:
     - target: {fileID: 5033950770297168741, guid: f2bc67b2ebd8e4d72bf62eafa60f688b, type: 3}
       propertyPath: m_Name
       value: MysteryBlock_0 (4)
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: f2bc67b2ebd8e4d72bf62eafa60f688b, type: 3}
---- !u!1001 &1202296967
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 248829972}
-    m_Modifications:
-    - target: {fileID: -5071218555945214413, guid: f2bc67b2ebd8e4d72bf62eafa60f688b, type: 3}
-      propertyPath: item
-      value: 
-      objectReference: {fileID: 2513435494509232653, guid: 2540ece27203941b0963103ce68d57a4, type: 3}
-    - target: {fileID: 2521903358095784062, guid: f2bc67b2ebd8e4d72bf62eafa60f688b, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -25.13
-      objectReference: {fileID: 0}
-    - target: {fileID: 2521903358095784062, guid: f2bc67b2ebd8e4d72bf62eafa60f688b, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -0.49
-      objectReference: {fileID: 0}
-    - target: {fileID: 2521903358095784062, guid: f2bc67b2ebd8e4d72bf62eafa60f688b, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0.07320076
-      objectReference: {fileID: 0}
-    - target: {fileID: 2521903358095784062, guid: f2bc67b2ebd8e4d72bf62eafa60f688b, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2521903358095784062, guid: f2bc67b2ebd8e4d72bf62eafa60f688b, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2521903358095784062, guid: f2bc67b2ebd8e4d72bf62eafa60f688b, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2521903358095784062, guid: f2bc67b2ebd8e4d72bf62eafa60f688b, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2521903358095784062, guid: f2bc67b2ebd8e4d72bf62eafa60f688b, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2521903358095784062, guid: f2bc67b2ebd8e4d72bf62eafa60f688b, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2521903358095784062, guid: f2bc67b2ebd8e4d72bf62eafa60f688b, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5033950770297168741, guid: f2bc67b2ebd8e4d72bf62eafa60f688b, type: 3}
-      propertyPath: m_Name
-      value: MysteryBlock_0 (6)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -10927,7 +10928,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5968998321230240960, guid: e0ca2a1053972466a8a15538265ab2a2, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -115.19999
+      value: 19.600006
       objectReference: {fileID: 0}
     - target: {fileID: 5968998321230240960, guid: e0ca2a1053972466a8a15538265ab2a2, type: 3}
       propertyPath: m_LocalPosition.y

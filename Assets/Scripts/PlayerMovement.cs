@@ -126,6 +126,8 @@ public class PlayerMovement : MonoBehaviour
             velocity.y = jumpForce;
             jumping = true;
             coyoteTimeCounter = 0f;
+
+            SoundManager.Instance.Play("Jump");
         }
     }
 
@@ -136,6 +138,8 @@ public class PlayerMovement : MonoBehaviour
             velocity.y = jumpForce;
             jumping = true;
             coyoteTimeCounter = 0f;
+
+            SoundManager.Instance.Play("Jump");
         }
     }
 

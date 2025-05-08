@@ -40,6 +40,8 @@ public class Player : MonoBehaviour
 
     public void Death()
     {
+        SoundManager.Instance.Play("Death");
+
         smallRenderer.enabled = false;
         bigRenderer.enabled = false;
         deathAnimation.enabled = true;
